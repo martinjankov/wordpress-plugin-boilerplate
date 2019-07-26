@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WPB_AJAX_Handler {
     public function __construct() {
-        add_action( 'wp_ajax_wpb_load_users', array( $this, 'wpb_load_users') );
-        add_action( 'wp_ajax_nopriv_wpb_load_users', array( $this, 'wpb_load_users') );
+        add_action( 'wp_ajax_wpb_get_result', array( $this, 'wpb_get_result') );
+        add_action( 'wp_ajax_nopriv_wpb_get_result', array( $this, 'wpb_get_result') );
     }
 
     // Function called with AJAX.
