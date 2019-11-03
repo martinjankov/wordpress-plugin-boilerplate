@@ -1,4 +1,6 @@
 <?php
+namespace WPB\Admin;
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -6,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WPB_Admin_Dashboard {
 	public function __construct() {
-		add_action( 'admin_init', array( $this, 'wpb_register_settings' ) );
-		add_action( 'admin_menu', array( $this, 'wpb_menu' ) );
+		add_action( 'admin_init', [ $this, 'wpb_register_settings' ] );
+		add_action( 'admin_menu', [ $this, 'wpb_menu' ] );
 	}
 
 	public function wpb_menu() {
@@ -16,7 +18,7 @@ class WPB_Admin_Dashboard {
             'WPB Settings',
             'administrator',
             'wpb-settings',
-            array( $this,'wpb_settings' ),
+            [ $this,'wpb_settings' ],
             'dashicons-admin-generic'
         );
 	}

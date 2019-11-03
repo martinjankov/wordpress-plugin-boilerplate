@@ -1,4 +1,6 @@
 <?php
+namespace WPB\API;
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -6,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WPB_AJAX_Handler {
     public function __construct() {
-        add_action( 'wp_ajax_wpb_get_result', array( $this, 'wpb_get_result') );
-        add_action( 'wp_ajax_nopriv_wpb_get_result', array( $this, 'wpb_get_result') );
+        add_action( 'wp_ajax_wpb_get_result', [ $this, 'wpb_get_result' ] );
+        add_action( 'wp_ajax_nopriv_wpb_get_result', [ $this, 'wpb_get_result' ] );
     }
 
     // Function called with AJAX.
@@ -28,8 +30,8 @@ class WPB_AJAX_Handler {
             );
         }
 
-        $result = array( 'status' => true );
+        $result = [ 'status' => true ];
 
-        wp_send_json( $result );
+        wp_send_json_success( $result );
     }
 }

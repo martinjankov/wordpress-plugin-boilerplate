@@ -1,4 +1,6 @@
 <?php
+namespace WPB\Classes;
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -6,9 +8,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class WPB_Shortcode {
     public function __construct() {
-		add_shortcode( 'wpb_shortcode', array( $this, 'create_shortcode' ) );
+		add_shortcode( 'wpb_shortcode', [ $this, 'create_shortcode' ] );
 
-        add_action( 'wp_enqueue_scripts', array( $this, 'load_assets' ), 20 );
+        add_action( 'wp_enqueue_scripts', [ $this, 'load_assets' ], 20 );
 	}
 
 	public function load_assets() {
@@ -23,7 +25,7 @@ class WPB_Shortcode {
 	        wp_enqueue_style(
                 'wpb-shortcode-related-style',
                 WPB_PLUGIN_URL . 'assets/public/css/style.css',
-                array(),
+                [],
                 WPB_VERSION
             );
 
@@ -31,7 +33,7 @@ class WPB_Shortcode {
 			wp_enqueue_script(
                 'wpb-shortcode-related-script',
                 WPB_PLUGIN_URL . 'assets/public/js/script.js',
-                array('jquery'),
+                ['jquery'],
                 WPB_VERSION,
                 true
             );
@@ -39,23 +41,23 @@ class WPB_Shortcode {
             wp_localize_script(
                 'wpb-shortcode-related-script',
                 'wpb',
-                array(
+                [
                     'ajax_url' => admin_url( 'admin-ajax.php' ),
                     'wp_nonce' => wp_create_nonce('ajax-nonce')
-                )
+                ]
             );
         }
 	}
 
 	public function create_shortcode( $attr ) {
         if ( ! current_user_can( 'administrator' ) ) {
-            return __( 'You don\'t have permission to see this', 'wpct' );
+            return __( 'You don\'t have permission to see this', 'wpb' );
         }
 
 		$attr = shortcode_atts(
-            array(
+            [
                 'title'  => 'This is wordpress boilerplate shortcode',
-            ),
+            ],
             $attr
         );
 

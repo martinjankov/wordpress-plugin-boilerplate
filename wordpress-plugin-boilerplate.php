@@ -1,4 +1,5 @@
 <?php
+namespace WPB;
 /**
  * Plugin Name: Wordpress Plugin Boilerplate
  * Description: Starter boilerplate for creating wordpress plugins.
@@ -53,16 +54,16 @@ final class WordpressPluginBoilerplate {
 
 	public static function instance() {
 		if ( ! isset( self::$_instance ) && ! ( self::$_instance instanceof WordpressPluginBoilerplate ) ) {
-
 			self::$_instance = new WordpressPluginBoilerplate;
-			self::$_instance->constants();
+            self::$_instance->constants();
 			self::$_instance->includes();
 
-            add_action( 'plugins_loaded', array( self::$_instance, 'objects' ), 10 );
-            add_action( 'plugins_loaded', array( self::$_instance, 'load_textdomain' ), 10 );
-			add_action( 'admin_enqueue_scripts', array( self::$_instance, 'load_global_admin_assets' ), 10 );
-			add_action( 'wp_enqueue_scripts', array( self::$_instance, 'load_global_frontend_assets' ), 10 );
-		}
+            add_action( 'plugins_loaded', [ self::$_instance, 'objects' ] );
+            add_action( 'plugins_loaded', [ self::$_instance, 'load_textdomain' ] );
+			add_action( 'admin_enqueue_scripts', [ self::$_instance, 'load_global_admin_assets' ] );
+			add_action( 'wp_enqueue_scripts', [ self::$_instance, 'load_global_frontend_assets' ] );
+        }
+
 		return self::$_instance;
 	}
 
@@ -74,20 +75,19 @@ final class WordpressPluginBoilerplate {
 		require_once WPB_PLUGIN_DIR . 'includes/functions.php';
 
 		// Classes
-        require_once WPB_PLUGIN_DIR . 'classes/WPB_Shortcode.php';
+        require_once WPB_PLUGIN_DIR . 'classes/class-wpb-shortcode.php';
 
         //API
-        require_once WPB_PLUGIN_DIR . 'api/WPB_API_Handler.php';
-        require_once WPB_PLUGIN_DIR . 'api/WPB_AJAX_Handler.php';
+        require_once WPB_PLUGIN_DIR . 'api/class-wpb-api-handler.php';
+        require_once WPB_PLUGIN_DIR . 'api/class-wpb-ajax-handler.php';
 
 		// Admin/Dashboard only includes
 		if ( is_admin() ) {
-			require_once WPB_PLUGIN_DIR . 'classes/admin/WPB_Admin_Dashboard.php';
+			require_once WPB_PLUGIN_DIR . 'classes/admin/class-wpb-admin-dashboard.php';
 		}
 	}
 
 	private function constants() {
-
 		// Plugin version
 		if ( ! defined( 'WPB_VERSION' ) ) {
 			define( 'WPB_VERSION', $this->_version );
@@ -111,14 +111,14 @@ final class WordpressPluginBoilerplate {
 
 	public function objects() {
 		// Global objects
-        new WPB_Shortcode();
-        new WPB_AJAX_Handler;
+        new \WPB\Classes\WPB_Shortcode;
+        new \WPB\API\WPB_AJAX_Handler;
 
-        $this->api_handler = new WPB_API_Handler();
+        (new \WPB\API\WPB_API_Handler)->init();
 
 		// Init classes if is Admin/Dashboard
 		if ( is_admin() ) {
-			new WPB_Admin_Dashboard;
+			new \WPB\Admin\WPB_Admin_Dashboard;
 		}
 	}
 
@@ -132,14 +132,14 @@ final class WordpressPluginBoilerplate {
 		wp_enqueue_style(
 			'wpb-admin-style',
 			WPB_PLUGIN_URL . 'assets/admin/css/style.css',
-			array(),
+			[],
 			WPB_VERSION
 		);
 
 		wp_enqueue_script(
 			'wpb-admin-script',
 			WPB_PLUGIN_URL . 'assets/admin/js/script.js',
-			array('jquery'),
+			['jquery'],
 			WPB_VERSION,
 			true
 		);
@@ -155,14 +155,14 @@ final class WordpressPluginBoilerplate {
 		wp_enqueue_style(
 			'wpb-style',
 			WPB_PLUGIN_URL . 'assets/public/css/style.css',
-			array(),
+			[],
 			WPB_VERSION
 		);
 
 		wp_enqueue_script(
 			'wpb-script',
 			WPB_PLUGIN_URL . 'assets/public/js/script.js',
-			array('jquery'),
+			['jquery'],
 			WPB_VERSION,
 			true
 		);
