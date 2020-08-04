@@ -1,6 +1,6 @@
-# WP Codeable Test
+# WordPress Boilerplate Plugin
 
-This plugin is a starter boiler plugin to help you start with creating your own Wordpress plugin.
+This plugin is a starter boiler plugin to help you start with creating your own WordPress Plugin.
 
 ## How to use it
 
