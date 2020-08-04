@@ -1,5 +1,4 @@
 <?php
-namespace MartinCV;
 /**
  * Plugin Name: WordPress Plugin Boilerplate
  * Description: Starter boilerplate for creating WordPress Plugins.
