@@ -28,15 +28,15 @@ trait Singleton_Routes {
      * @return  void
      */
 	private function __construct() {
-        if ( method_exists( self::$_instance, '_load_routes' ) ) {
+        if ( method_exists( $this, '_load_routes' ) ) {
             add_action(
                 'rest_api_init',
                 function() {
-                    $routes = self::$_instance->_load_routes();
+                    $routes = $this->_load_routes();
 
-                    self::$_instance->_setup_namespace_endpoint_prefix();
+                    $this->_setup_namespace_endpoint_prefix();
 
-                    self::$_instance->_register_endpoints( $routes );
+                    $this->_register_endpoints( $routes );
                 }
             );
         }
