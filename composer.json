@@ -1,6 +1,8 @@
 {
     "name": "martincv/wordpress-plugin-boilerplate",
     "description": "Wordpress Starter Plugin",
+    "keywords": ["wordpress starter plugin","wordpress"],
+    "homepage": "https://www.martincv.com",
     "type": "project",
     "license": "GPL-3.0+",
     "authors": [
@@ -10,5 +12,7 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "php": ">=7.0.0"
+    }
 }
