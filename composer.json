@@ -11,8 +11,9 @@
             "email": "martin@martincv.com"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
         "php": ">=7.0.0"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
