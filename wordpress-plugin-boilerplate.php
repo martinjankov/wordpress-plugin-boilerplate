@@ -1,15 +1,15 @@
 <?php
-namespace WPB;
+namespace MartinCV;
 /**
- * Plugin Name: Wordpress Plugin Boilerplate
- * Description: Starter boilerplate for creating wordpress plugins.
+ * Plugin Name: WordPress Plugin Boilerplate
+ * Description: Starter boilerplate for creating WordPress Plugins.
  * Author:      MartinCV
  * Author URI:  https://www.martincv.com
  * Version:     1.0.0
  * Text Domain: wpb
  * Domain Path: /languages
  *
- * Wordpress Plugin Boilerplate is free software: you can redistribute it and/or modify
+ * WordPress Plugin Boilerplate is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * any later version.
