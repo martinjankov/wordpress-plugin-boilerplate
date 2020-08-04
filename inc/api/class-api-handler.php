@@ -1,5 +1,5 @@
 <?php
-namespace WPB\API;
+namespace MartinCV\API;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class API_Handler {
-    use \WPB\Traits\SingletonRoutes;
+    use \MartinCV\Traits\Singleton_Routes;
 
     /**
 	 * Load routes

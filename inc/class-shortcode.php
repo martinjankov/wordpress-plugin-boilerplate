@@ -1,5 +1,5 @@
 <?php
-namespace WPB;
+namespace MartinCV;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Shortcode {
-    use \WPB\Traits\Singleton;
+    use \MartinCV\Traits\Singleton;
 
     /**
      * If exits, invoked in Singleton traint private constructor

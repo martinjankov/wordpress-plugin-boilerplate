@@ -1,5 +1,5 @@
 <?php
-namespace WPB\Traits;
+namespace MartinCV\Traits;
 
 trait Singleton {
     /**

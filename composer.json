@@ -1,0 +1,14 @@
+{
+    "name": "martincv/wordpress-plugin-boilerplate",
+    "description": "Wordpress Starter Plugin",
+    "type": "project",
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "MartinCV",
+            "email": "martinjankov7@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

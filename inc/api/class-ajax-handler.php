@@ -1,5 +1,5 @@
 <?php
-namespace WPB\API;
+namespace MartinCV\API;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class AJAX_Handler {
-    use \WPB\Traits\Singleton;
+    use \MartinCV\Traits\Singleton;
 
     /**
      * Initialize class

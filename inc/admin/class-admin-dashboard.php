@@ -1,5 +1,5 @@
 <?php
-namespace WPB\Admin;
+namespace MartinCV\Admin;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Admin_Dashboard {
-    use \WPB\Traits\Singleton;
+    use \MartinCV\Traits\Singleton;
 
     /**
      * Initialize class
@@ -26,8 +26,8 @@ class Admin_Dashboard {
      */
 	public function menu() {
 		add_menu_page(
-            'WP Simple Post Navigation',
-            'WPB Settings',
+            'Boilerplate Plugin',
+            'Boilerplate Plugin Settings',
             'administrator',
             'wpb-settings',
             [ $this,'settings' ],

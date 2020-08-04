@@ -7,32 +7,34 @@
  * @return  boolean
  */
 function wpb_plugin_autoloader( $class ) {
-	$dir = '/inc';
+    $dir = '/inc';
+    $type = 'class';
 
 	switch ( $class ) {
-		case false !== strpos( $class, 'WPB\\Admin\\' ):
-										$class = strtolower( str_replace( 'WPB\\Admin', '', $class ) );
+		case false !== strpos( $class, 'MartinCV\\Admin\\' ):
+										$class = strtolower( str_replace( 'MartinCV\\Admin', '', $class ) );
 										$dir .= '/admin';
 										break;
-		case false !== strpos( $class, 'WPB\\API\\' ):
-										$class = strtolower( str_replace( 'WPB\\API', '', $class ) );
+		case false !== strpos( $class, 'MartinCV\\API\\' ):
+										$class = strtolower( str_replace( 'MartinCV\\API', '', $class ) );
 										$dir .= '/api';
 										break;
-		case false !== strpos( $class, 'WPB\\Traits\\' ):
-                                        $class = strtolower( str_replace( 'WPB\\Traits', '', $class ) );
+		case false !== strpos( $class, 'MartinCV\\Traits\\' ):
+                                        $class = strtolower( str_replace( 'MartinCV\\Traits', '', $class ) );
                                         $dir .= '/traits';
+                                        $type = 'trait';
 										break;
-		case false !== strpos( $class, 'WPB\\Core\\' ):
-                                        $class = strtolower( str_replace( 'WPB\\Core', '', $class ) );
+		case false !== strpos( $class, 'MartinCV\\Core\\' ):
+                                        $class = strtolower( str_replace( 'MartinCV\\Core', '', $class ) );
                                         $dir .= '/core';
 										break;
-		case false !== strpos( $class, 'WPB\\' ):
-                                        $class = strtolower( str_replace( 'WPB', '', $class ) );
+		case false !== strpos( $class, 'MartinCV\\' ):
+                                        $class = strtolower( str_replace( 'MartinCV', '', $class ) );
 										break;
 		default: return;
 	}
 
-	$filename = dirname( __FILE__ ) . $dir . str_replace( '_', '-', str_replace( '\\', '/class-', $class ) ) . '.php';
+	$filename = WPB_PLUGIN_DIR . $dir . str_replace( '_', '-', str_replace( '\\', '/' . $type . '-', $class ) ) . '.php';
 
 	if ( file_exists( $filename ) ) {
 		require_once $filename;
@@ -44,4 +46,5 @@ function wpb_plugin_autoloader( $class ) {
 
 	return false;
 }
+
 spl_autoload_register( 'wpb_plugin_autoloader' );

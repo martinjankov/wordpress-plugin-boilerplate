@@ -67,8 +67,6 @@ final class WordpressPluginBoilerplate {
 
             add_action( 'plugins_loaded', [ self::$_instance, 'objects' ] );
             add_action( 'plugins_loaded', [ self::$_instance, 'load_textdomain' ] );
-			add_action( 'admin_enqueue_scripts', [ self::$_instance, 'load_global_admin_assets' ] );
-			add_action( 'wp_enqueue_scripts', [ self::$_instance, 'load_global_frontend_assets' ] );
         }
 
 		return self::$_instance;
@@ -117,76 +115,16 @@ final class WordpressPluginBoilerplate {
      */
 	public function objects() {
 		// Global objects
-        \WPB\Shortcode::get_instance();
-        \WPB\API\AJAX_Handler::get_instance();
+        \MartinCV\Shortcode::get_instance();
+        \MartinCV\API\AJAX_Handler::get_instance();
 
-        \WPB\API\API_Handler::get_instance();
+        \MartinCV\API\API_Handler::get_instance();
 
 		// Init classes if is Admin/Dashboard
 		if ( is_admin() ) {
-			\WPB\Admin\Admin_Dashboard::get_instance();
+			\MartinCV\Admin\Admin_Dashboard::get_instance();
 		}
 	}
-
-    /**
-     * Load global admin assets
-     *
-     * @param   string  $hook
-     *
-     * @return  void
-     */
-	public function load_global_admin_assets( $hook ) {
-		global $post;
-
-		if ( ! isset( $post ) ) {
-			return;
-		}
-
-		wp_enqueue_style(
-			'wpb-admin-style',
-			WPB_PLUGIN_URL . 'assets/admin/css/style.css',
-			[],
-			WPB_VERSION
-		);
-
-		wp_enqueue_script(
-			'wpb-admin-script',
-			WPB_PLUGIN_URL . 'assets/admin/js/script.js',
-			['jquery'],
-			WPB_VERSION,
-			true
-		);
-	}
-
-    /**
-     * Load global frontend assets
-     *
-     * @param   string  $hook
-     *
-     * @return  void
-     */
-	public function load_global_frontend_assets( $hook ){
-		global $post;
-
-		if ( ! isset( $post ) ) {
-			return;
-		}
-
-		wp_enqueue_style(
-			'wpb-style',
-			WPB_PLUGIN_URL . 'assets/public/css/style.css',
-			[],
-			WPB_VERSION
-		);
-
-		wp_enqueue_script(
-			'wpb-script',
-			WPB_PLUGIN_URL . 'assets/public/js/script.js',
-			['jquery'],
-			WPB_VERSION,
-			true
-		);
-    }
 
     /**
      * Register textdomain
