@@ -6,13 +6,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WPB_AJAX_Handler {
-    public function __construct() {
+class AJAX_Handler {
+    use \WPB\Traits\Singleton;
+
+    /**
+     * Initialize class
+     *
+     * @return  void
+     */
+    public function _initialize() {
         add_action( 'wp_ajax_wpb_get_result', [ $this, 'wpb_get_result' ] );
         add_action( 'wp_ajax_nopriv_wpb_get_result', [ $this, 'wpb_get_result' ] );
     }
 
-    // Function called with AJAX.
+    /**
+     * Execute some AJAX code here
+     *
+     * @return  \JSON
+     */
     public function wpb_get_result() {
         if ( ! current_user_can( 'administrator' ) ) {
             wp_send_json_error(

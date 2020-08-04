@@ -1,18 +1,30 @@
 <?php
-namespace WPB\Classes;
+namespace WPB;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WPB_Shortcode {
-    public function __construct() {
+class Shortcode {
+    use \WPB\Traits\Singleton;
+
+    /**
+     * If exits, invoked in Singleton traint private constructor
+     *
+     * @return  void
+     */
+    private function _initialize() {
 		add_shortcode( 'wpb_shortcode', [ $this, 'create_shortcode' ] );
 
         add_action( 'wp_enqueue_scripts', [ $this, 'load_assets' ], 20 );
 	}
 
+    /**
+     * Load assets
+     *
+     * @return  void
+     */
 	public function load_assets() {
 		global $post;
 
@@ -49,6 +61,13 @@ class WPB_Shortcode {
         }
 	}
 
+    /**
+     * Create the shortcode
+     *
+     * @param   array  $attr
+     *
+     * @return  string
+     */
 	public function create_shortcode( $attr ) {
         if ( ! current_user_can( 'administrator' ) ) {
             return __( 'You don\'t have permission to see this', 'wpb' );

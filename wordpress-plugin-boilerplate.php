@@ -3,9 +3,9 @@ namespace WPB;
 /**
  * Plugin Name: Wordpress Plugin Boilerplate
  * Description: Starter boilerplate for creating wordpress plugins.
- * Author:      Martin Jankov
+ * Author:      MartinCV
  * Author URI:  https://www.martincv.com
- * Version:     0.0.1
+ * Version:     1.0.0
  * Text Domain: wpb
  * Domain Path: /languages
  *
@@ -23,10 +23,10 @@ namespace WPB;
  * along with Wordpress Plugin Boilerplate. If not, see <http://www.gnu.org/licenses/>.
  *
  * @package    WordpressPluginBoilerplate
- * @author     Martin Jankov
- * @since      0.0.1
+ * @author     MartinCV
+ * @since      1.0.0
  * @license    GPL-3.0+
- * @copyright  Copyright (c) 2019, Martin Jankov
+ * @copyright  Copyright (c) 2020, MartinCV
  */
 
 // Exit if accessed directly
@@ -45,12 +45,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 final class WordpressPluginBoilerplate {
-
+    /**
+     * Instance of the plugin
+     *
+     * @var WordpressPluginBoilerplate
+     */
 	private static $_instance;
 
-	private $_version = '0.0.1';
-
-	public $api_handler;
+    /**
+     * Plugin version
+     *
+     * @var string
+     */
+	private $_version = '1.0.0';
 
 	public static function instance() {
 		if ( ! isset( self::$_instance ) && ! ( self::$_instance instanceof WordpressPluginBoilerplate ) ) {
@@ -67,26 +74,20 @@ final class WordpressPluginBoilerplate {
 		return self::$_instance;
 	}
 
+    /**
+     * 3rd party includes
+     *
+     * @return  void
+     */
 	private function includes() {
-		//Libraries
-		require_once WPB_PLUGIN_DIR . 'libraries/library.php';
-
-		// Global includes
-		require_once WPB_PLUGIN_DIR . 'includes/functions.php';
-
-		// Classes
-        require_once WPB_PLUGIN_DIR . 'classes/class-wpb-shortcode.php';
-
-        //API
-        require_once WPB_PLUGIN_DIR . 'api/class-wpb-api-handler.php';
-        require_once WPB_PLUGIN_DIR . 'api/class-wpb-ajax-handler.php';
-
-		// Admin/Dashboard only includes
-		if ( is_admin() ) {
-			require_once WPB_PLUGIN_DIR . 'classes/admin/class-wpb-admin-dashboard.php';
-		}
+		require_once WPB_PLUGIN_DIR . 'inc/core/autoloader.php';
 	}
 
+    /**
+     * Define plugin constants
+     *
+     * @return  void
+     */
 	private function constants() {
 		// Plugin version
 		if ( ! defined( 'WPB_VERSION' ) ) {
@@ -95,12 +96,12 @@ final class WordpressPluginBoilerplate {
 
 		// Plugin Folder Path
 		if ( ! defined( 'WPB_PLUGIN_DIR' ) ) {
-			define( 'WPB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+			define( 'WPB_PLUGIN_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 		}
 
 		// Plugin Folder URL
 		if ( ! defined( 'WPB_PLUGIN_URL' ) ) {
-			define( 'WPB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+			define( 'WPB_PLUGIN_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 		}
 
 		// Plugin Root File
@@ -109,19 +110,31 @@ final class WordpressPluginBoilerplate {
 		}
 	}
 
+    /**
+     * Initialize classes / objects here
+     *
+     * @return  void
+     */
 	public function objects() {
 		// Global objects
-        new \WPB\Classes\WPB_Shortcode;
-        new \WPB\API\WPB_AJAX_Handler;
+        \WPB\Shortcode::get_instance();
+        \WPB\API\AJAX_Handler::get_instance();
 
-        (new \WPB\API\WPB_API_Handler)->init();
+        \WPB\API\API_Handler::get_instance();
 
 		// Init classes if is Admin/Dashboard
 		if ( is_admin() ) {
-			new \WPB\Admin\WPB_Admin_Dashboard;
+			\WPB\Admin\Admin_Dashboard::get_instance();
 		}
 	}
 
+    /**
+     * Load global admin assets
+     *
+     * @param   string  $hook
+     *
+     * @return  void
+     */
 	public function load_global_admin_assets( $hook ) {
 		global $post;
 
@@ -145,6 +158,13 @@ final class WordpressPluginBoilerplate {
 		);
 	}
 
+    /**
+     * Load global frontend assets
+     *
+     * @param   string  $hook
+     *
+     * @return  void
+     */
 	public function load_global_frontend_assets( $hook ){
 		global $post;
 
@@ -168,6 +188,11 @@ final class WordpressPluginBoilerplate {
 		);
     }
 
+    /**
+     * Register textdomain
+     *
+     * @return  void
+     */
     public function load_textdomain() {
 		load_plugin_textdomain( 'wpb', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
