@@ -4,7 +4,7 @@
  * Description: Starter boilerplate for creating WordPress Plugins.
  * Author:      MartinCV
  * Author URI:  https://www.martincv.com
- * Version:     1.0.0
+ * Version:     1.0.1
  * Text Domain: wpb
  * Domain Path: /languages
  *
@@ -23,7 +23,7 @@
  *
  * @package    WordpressPluginBoilerplate
  * @author     MartinCV
- * @since      1.0.0
+ * @since      1.0.1
  * @license    GPL-3.0+
  * @copyright  Copyright (c) 2020, MartinCV
  */
@@ -56,7 +56,7 @@ final class WordpressPluginBoilerplate {
      *
      * @var string
      */
-	private $_version = '1.0.0';
+	private $_version = '1.0.1';
 
 	public static function instance() {
 		if ( ! isset( self::$_instance ) && ! ( self::$_instance instanceof WordpressPluginBoilerplate ) ) {
