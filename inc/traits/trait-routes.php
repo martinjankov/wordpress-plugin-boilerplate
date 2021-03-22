@@ -1,42 +1,22 @@
 <?php
 namespace MartinCV\Traits;
 
-trait Singleton_Routes {
+trait Routes {
     /**
-     * Class instance
-     *
-     * @var \Object
-     */
-	private static $_instance = null;
-
-    /**
-	 * Setup singleton instanc
-	 *
-	 * @return  \Object
-	 */
-	public static function get_instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new static();
-		}
-
-		return self::$_instance;
-	}
-
-    /**
-     * Private construct
+     * Init routes
      *
      * @return  void
      */
-	private function __construct() {
-        if ( method_exists( $this, '_load_routes' ) ) {
+	private function init_routes() {
+        if ( method_exists( $this, 'load_routes' ) ) {
             add_action(
                 'rest_api_init',
                 function() {
-                    $routes = $this->_load_routes();
+                    $routes = $this->load_routes();
 
-                    $this->_setup_namespace_endpoint_prefix();
+                    $this->setup_namespace_endpoint_prefix();
 
-                    $this->_register_endpoints( $routes );
+                    $this->register_endpoints( $routes );
                 }
             );
         }
@@ -47,7 +27,7 @@ trait Singleton_Routes {
 	 *
 	 * @return  void
 	 */
-	private function _register_endpoints( $routes ) {
+	private function register_endpoints( $routes ) {
 		if ( ! is_array( $routes ) ) {
 			return;
 		}
@@ -73,7 +53,7 @@ trait Singleton_Routes {
 	 *
 	 * @return  void
 	 */
-	private function _setup_namespace_endpoint_prefix() {
+	private function setup_namespace_endpoint_prefix() {
 		if ( ! isset( $this->namespace ) ) {
 			$this->namespace = 'routes/v1';
 		}

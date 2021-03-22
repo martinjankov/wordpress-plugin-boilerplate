@@ -7,7 +7,7 @@ trait Singleton {
 	 *
 	 * @var \Object
 	 */
-	private static $_instance = null;
+	private static $instance = null;
 
 	/**
 	 * Setup singleton instanc
@@ -15,11 +15,11 @@ trait Singleton {
 	 * @return  \Object
 	 */
 	public static function get_instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new static();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new static();
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
@@ -28,8 +28,8 @@ trait Singleton {
 	 * @return  void
 	 */
 	private function __construct() {
-		if ( method_exists( $this, '_initialize' ) ) {
-			$this->_initialize();
+		if ( method_exists( $this, 'initialize' ) ) {
+			$this->initialize();
 		}
 	}
 }

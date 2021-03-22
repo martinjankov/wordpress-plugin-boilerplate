@@ -7,7 +7,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class API_Handler {
-    use \MartinCV\Traits\Singleton_Routes;
+    use \MartinCV\Traits\Singleton, \MartinCV\Traits\Routes;
+
+    /**
+     * Initialize class
+     *
+     * @return  void
+     */
+    private function initialize() {
+        $this->init_routes();
+    }
 
     /**
 	 * Load routes
@@ -16,7 +25,7 @@ class API_Handler {
 	 *
 	 * @return  void
 	 */
-	private function _load_routes() {
+	private function load_routes() {
 		$this->namespace       = 'wpb/v1';
 		$this->endpoint_prefix = 'prefix_or_leave_empty';
 

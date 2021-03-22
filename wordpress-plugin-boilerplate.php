@@ -25,7 +25,7 @@
  * @author     MartinCV
  * @since      1.0.1
  * @license    GPL-3.0+
- * @copyright  Copyright (c) 2020, MartinCV
+ * @copyright  Copyright (c) 2021, MartinCV
  */
 
 // Exit if accessed directly
@@ -49,7 +49,7 @@ final class WordpressPluginBoilerplate {
      *
      * @var WordpressPluginBoilerplate
      */
-	private static $_instance;
+	private static $instance;
 
     /**
      * Plugin version
@@ -58,17 +58,17 @@ final class WordpressPluginBoilerplate {
      */
 	private $_version = '1.0.1';
 
-	public static function instance() {
-		if ( ! isset( self::$_instance ) && ! ( self::$_instance instanceof WordpressPluginBoilerplate ) ) {
-			self::$_instance = new WordpressPluginBoilerplate;
-            self::$_instance->constants();
-			self::$_instance->includes();
+	public static function get_instance() {
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof WordpressPluginBoilerplate ) ) {
+			self::$instance = new WordpressPluginBoilerplate;
+            self::$instance->constants();
+			self::$instance->includes();
 
-            add_action( 'plugins_loaded', [ self::$_instance, 'objects' ] );
-            add_action( 'plugins_loaded', [ self::$_instance, 'load_textdomain' ] );
+            add_action( 'plugins_loaded', [ self::$instance, 'objects' ] );
+            add_action( 'plugins_loaded', [ self::$instance, 'load_textdomain' ] );
         }
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
     /**
@@ -143,6 +143,6 @@ final class WordpressPluginBoilerplate {
  *
  */
 function wpb() {
-	return WordpressPluginBoilerplate::instance();
+	return WordpressPluginBoilerplate::get_instance();
 }
 wpb();

@@ -34,9 +34,16 @@ class AJAX_Handler {
 
         $args = $_GET;
 
-        if ( ! wp_verify_nonce( $args['wp_nonce'], 'ajax-nonce' ) ) {
+        $nonce_check = check_ajax_referer(  'ajax-nonce', 'wp_nonce', false );
+
+        if ( ! $nonce_check ) {
             wp_send_json_error(
                 __( 'Invalid nonce', 'wpb' ),
+                403
+            );
+        } else if ( $nonce_check > 1 ) {
+            wp_send_json_error(
+                __( 'The form expired. Please refresh the page and try agian.', 'wpb' ),
                 403
             );
         }
