@@ -14,7 +14,7 @@ class Shortcode {
      *
      * @return  void
      */
-    private function _initialize() {
+    private function initialize() {
 		add_shortcode( 'wpb_shortcode', [ $this, 'create_shortcode' ] );
 
         add_action( 'wp_enqueue_scripts', [ $this, 'load_assets' ], 20 );

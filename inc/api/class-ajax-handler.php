@@ -14,7 +14,7 @@ class AJAX_Handler {
      *
      * @return  void
      */
-    public function _initialize() {
+    public function initialize() {
         add_action( 'wp_ajax_wpb_get_result', [ $this, 'wpb_get_result' ] );
         add_action( 'wp_ajax_nopriv_wpb_get_result', [ $this, 'wpb_get_result' ] );
     }

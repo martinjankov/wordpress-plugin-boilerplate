@@ -14,7 +14,7 @@ class Admin_Dashboard {
      *
      * @return  void
      */
-	private function _initialize() {
+	private function initialize() {
 		add_action( 'admin_init', [ $this, 'register_settings' ] );
 		add_action( 'admin_menu', [ $this, 'menu' ] );
 	}
