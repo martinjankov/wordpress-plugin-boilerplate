@@ -4,7 +4,7 @@
  * Description: Starter boilerplate for creating WordPress Plugins.
  * Author:      MartinCV
  * Author URI:  https://www.martincv.com
- * Version:     1.0.2
+ * Version:     1.0.3
  * Text Domain: wpb
  * Domain Path: /languages
  *
@@ -13,22 +13,22 @@
  * the Free Software Foundation, either version 3 of the License, or
  * any later version.
  *
- * Wordpress Plugin Boilerplate is distributed in the hope that it will be useful,
+ * WordPress Plugin Boilerplate is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Wordpress Plugin Boilerplate. If not, see <http://www.gnu.org/licenses/>.
+ * along with WordPress Plugin Boilerplate. If not, see <http://www.gnu.org/licenses/>.
  *
- * @package    WordpressPluginBoilerplate
+ * @package    WordPressPluginBoilerplate
  * @author     MartinCV
- * @since      1.0.2
+ * @since      1.0.3
  * @license    GPL-3.0+
  * @copyright  Copyright (c) 2021, MartinCV
  */
 
-// Exit if accessed directly
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -37,112 +37,108 @@ if ( ! defined( 'ABSPATH' ) ) {
  * NOTICE!!!
  * It is strongly suggeted that you rename the global constants (WPB_PLUGING_DIR,WPB_VERSION,WPB_PLUGIN_URL,WPB_PLUGIN_FILE),
  * the script/style hook names (wpb-style, wpb-script, wpb-admin-style, wpb-admin-script),
- * as well as the class name (WordpressPluginBoilerplate).
+ * as well as the class name (WordPressPluginBoilerplate).
  * This is only for demonstration purposes and it may confict with other plugin's constants and hook names if not changed to unique.
  *
  * You can add/remove any functions/files you need or don't.
  */
 
-final class WordpressPluginBoilerplate {
-    /**
-     * Instance of the plugin
-     *
-     * @var WordpressPluginBoilerplate
-     */
+/**
+ * WordPress Main Plugin Class
+ */
+final class WordPressPluginBoilerplate {
+	/**
+	 * Instance of the plugin
+	 *
+	 * @var WordPressPluginBoilerplate
+	 */
 	private static $instance;
 
-    /**
-     * Plugin version
-     *
-     * @var string
-     */
-	private $_version = '1.0.2';
+	/**
+	 * Plugin version
+	 *
+	 * @var string
+	 */
+	private $version = '1.0.3';
 
+	/**
+	 * Instanciate the plugin
+	 */
 	public static function get_instance() {
-		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof WordpressPluginBoilerplate ) ) {
-			self::$instance = new WordpressPluginBoilerplate;
-            self::$instance->constants();
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof WordPressPluginBoilerplate ) ) {
+			self::$instance = new WordPressPluginBoilerplate();
+			self::$instance->constants();
 			self::$instance->includes();
 
-            add_action( 'plugins_loaded', [ self::$instance, 'objects' ] );
-            add_action( 'plugins_loaded', [ self::$instance, 'load_textdomain' ] );
-        }
+			add_action( 'plugins_loaded', array( self::$instance, 'objects' ) );
+			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
+		}
 
 		return self::$instance;
 	}
 
-    /**
-     * 3rd party includes
-     *
-     * @return  void
-     */
+	/**
+	 * 3rd party includes
+	 *
+	 * @return  void
+	 */
 	private function includes() {
 		require_once WPB_PLUGIN_DIR . 'inc/core/autoloader.php';
 	}
 
-    /**
-     * Define plugin constants
-     *
-     * @return  void
-     */
+	/**
+	 * Define plugin constants
+	 *
+	 * @return  void
+	 */
 	private function constants() {
-		// Plugin version
+		// Plugin version.
 		if ( ! defined( 'WPB_VERSION' ) ) {
-			define( 'WPB_VERSION', $this->_version );
+			define( 'WPB_VERSION', $this->version );
 		}
 
-		// Plugin Folder Path
+		// Plugin Folder Path.
 		if ( ! defined( 'WPB_PLUGIN_DIR' ) ) {
 			define( 'WPB_PLUGIN_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 		}
 
-		// Plugin Folder URL
+		// Plugin Folder URL.
 		if ( ! defined( 'WPB_PLUGIN_URL' ) ) {
 			define( 'WPB_PLUGIN_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 		}
 
-		// Plugin Root File
+		// Plugin Root File.
 		if ( ! defined( 'WPB_PLUGIN_FILE' ) ) {
 			define( 'WPB_PLUGIN_FILE', __FILE__ );
 		}
 	}
 
-    /**
-     * Initialize classes / objects here
-     *
-     * @return  void
-     */
+	/**
+	 * Initialize classes / objects here
+	 *
+	 * @return  void
+	 */
 	public function objects() {
-		// Global objects
-        \MartinCV\Shortcode::get_instance();
-        \MartinCV\API\AJAX_Handler::get_instance();
+		// Global objects.
+		\MartinCV\Shortcode::get_instance();
+		\MartinCV\API\AJAX_Handler::get_instance();
 
-        \MartinCV\API\API_Handler::get_instance();
+		\MartinCV\API\API_Handler::get_instance();
 
-		// Init classes if is Admin/Dashboard
+		// Init classes if is Admin/Dashboard.
 		if ( is_admin() ) {
 			\MartinCV\Admin\Admin_Dashboard::get_instance();
 		}
 	}
 
-    /**
-     * Register textdomain
-     *
-     * @return  void
-     */
-    public function load_textdomain() {
+	/**
+	 * Register textdomain
+	 *
+	 * @return  void
+	 */
+	public function load_textdomain() {
 		load_plugin_textdomain( 'wpb', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 }
 
-/**
- * Use this function as global in all other classes and/or files.
- *
- * You can do wpb()->object1->some_function()
- * You can do wpb()->object2->some_function()
- *
- */
-function wpb() {
-	return WordpressPluginBoilerplate::get_instance();
-}
-wpb();
+WordPressPluginBoilerplate::get_instance();

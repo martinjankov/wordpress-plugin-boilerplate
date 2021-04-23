@@ -1,8 +1,19 @@
 <?php
+/**
+ * Singleton Trait
+ *
+ * @package WordPressPluginBoilerplate
+ */
+
 namespace MartinCV\Traits;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 trait Singleton {
-    /**
+	/**
 	 * Instance of the object
 	 *
 	 * @var \Object
@@ -10,7 +21,7 @@ trait Singleton {
 	private static $instance = null;
 
 	/**
-	 * Setup singleton instanc
+	 * Setup singleton instance
 	 *
 	 * @return  \Object
 	 */
