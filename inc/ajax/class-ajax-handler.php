@@ -5,7 +5,7 @@
  * @package WordPressPluginBoilerplate
  */
 
-namespace MartinCV\API;
+namespace MartinCV\AJAX;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -52,8 +52,6 @@ class AJAX_Handler {
 				403
 			);
 		}
-
-		$args = $_GET;
 
 		$result = array( 'status' => true );
 

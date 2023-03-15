@@ -25,6 +25,7 @@ function wpb_plugin_autoloader( $class ) {
 		'namespace_map' => array(
 			'MartinCV\Admin'  => '/admin',
 			'MartinCV\API'    => '/api',
+			'MartinCV\AJAX'   => '/ajax',
 			'MartinCV\Traits' => '/traits',
 			'MartinCV\Core'   => '/core',
 			'MartinCV'        => '',

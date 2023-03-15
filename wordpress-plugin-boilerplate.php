@@ -4,7 +4,7 @@
  * Description: Starter boilerplate for creating WordPress Plugins.
  * Author:      MartinCV
  * Author URI:  https://www.martincv.com
- * Version:     1.0.3
+ * Version:     1.0.4
  * Text Domain: wpb
  * Domain Path: /languages
  *
@@ -23,9 +23,9 @@
  *
  * @package    WordPressPluginBoilerplate
  * @author     MartinCV
- * @since      1.0.3
+ * @since      1.0.0
  * @license    GPL-3.0+
- * @copyright  Copyright (c) 2021, MartinCV
+ * @copyright  Copyright (c) 2023, MartinCV
  */
 
 // Exit if accessed directly.
@@ -59,7 +59,7 @@ final class WordPressPluginBoilerplate {
 	 *
 	 * @var string
 	 */
-	private $version = '1.0.3';
+	private $version = '1.0.4';
 
 	/**
 	 * Instanciate the plugin
@@ -70,8 +70,7 @@ final class WordPressPluginBoilerplate {
 			self::$instance->constants();
 			self::$instance->includes();
 
-			add_action( 'plugins_loaded', array( self::$instance, 'objects' ) );
-			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
+			add_action( 'plugins_loaded', array( self::$instance, 'run' ) );
 		}
 
 		return self::$instance;
@@ -118,16 +117,18 @@ final class WordPressPluginBoilerplate {
 	 *
 	 * @return  void
 	 */
-	public function objects() {
+	public function run() {
+		$this->load_textdomain();
+
 		// Global objects.
 		\MartinCV\Shortcode::get_instance();
-		\MartinCV\API\AJAX_Handler::get_instance();
+		\MartinCV\AJAX\AJAX_Handler::get_instance();
 
 		\MartinCV\API\API_Handler::get_instance();
 
 		// Init classes if is Admin/Dashboard.
 		if ( is_admin() ) {
-			\MartinCV\Admin\Admin_Dashboard::get_instance();
+			\MartinCV\Admin\Dashboard::get_instance();
 		}
 	}
 
@@ -136,7 +137,7 @@ final class WordPressPluginBoilerplate {
 	 *
 	 * @return  void
 	 */
-	public function load_textdomain() {
+	private function load_textdomain() {
 		load_plugin_textdomain( 'wpb', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 }

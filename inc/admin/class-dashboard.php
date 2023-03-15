@@ -35,8 +35,8 @@ class Dashboard {
 	 */
 	public function menu() {
 		add_menu_page(
-			'Boilerplate Plugin',
-			'Boilerplate Plugin Settings',
+			__( 'Boilerplate Plugin', 'wpb' ),
+			__( 'Boilerplate Plugin Settings', 'wpb' ),
 			'administrator',
 			'wpb-settings',
 			array( $this, 'settings' ),
@@ -50,7 +50,7 @@ class Dashboard {
 	 * @return  void
 	 */
 	public function settings() {
-		$dashboard_settings = get_option( '_wpb_dashboard' );
+		$dashboard_settings = get_option( '_wpb_dashboard', array() );
 
 		include_once WPB_PLUGIN_DIR . 'views/admin/template-dashboard.php';
 	}
@@ -80,14 +80,23 @@ class Dashboard {
 	public function sanitize_options( $option ) {
 		if ( is_array( $option ) ) {
 			foreach ( $option as $field => $value ) {
+				if ( empty( $value ) ) {
+					unset( $option[ $field ] );
+					continue;
+				}
+
 				if ( is_numeric( $value ) ) {
-					$option[ $field ] = absint( $value );
+					$option[ $field ] = $value;
 				} else {
-					$option[ $field ] = sanitize_text_field( $value );
+					if ( is_array( $value ) ) {
+						$option[ $field ] = $this->sanitize_options( $value );
+					} else {
+						$option[ $field ] = sanitize_text_field( $value );
+					}
 				}
 			}
-		} else {
-			$option = sanitize_text_field( $option );
+
+			return array_filter( $option );
 		}
 
 		return $option;
