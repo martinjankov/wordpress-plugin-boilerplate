@@ -1,0 +1,32 @@
+{
+  "name": "martincv/wordpress-boilerplate-plugin",
+  "version": "1.0.4",
+  "description": "WordPress Boilerplate Plugin",
+  "author": "MartinCV",
+  "license": "GPL-3.0-or-later",
+  "keywords": [
+    "WordPress",
+    "Plugin"
+  ],
+  "homepage": "https://www.ppp.com",
+  "devDependencies": {
+    "node-sass": "^8.0"
+  },
+  "rtlcssConfig": {
+    "options": {
+      "autoRename": false,
+      "autoRenameStrict": false,
+      "blacklist": {},
+      "clean": true,
+      "greedy": false,
+      "processUrls": false,
+      "stringMap": []
+    },
+    "plugins": [],
+    "map": false
+  },
+  "scripts": {
+    "watch": "node-sass assets/sass/ -o ./assets/css/ --source-map true --output-style expanded --indent-type tab --indent-width 1 -w",
+    "compile:css": "node-sass assets/sass/ -o ./assets/css/"
+  }
+}

@@ -45,7 +45,7 @@ class Shortcode {
 			// Change file path to coresponding css file.
 			wp_enqueue_style(
 				'wpb-shortcode-related-style',
-				WPB_PLUGIN_URL . 'assets/public/css/style.css',
+				WPB_PLUGIN_URL . 'assets/css/public/style.css',
 				array(),
 				WPB_VERSION
 			);
@@ -53,7 +53,7 @@ class Shortcode {
 			// Change file path to coresponding js file.
 			wp_enqueue_script(
 				'wpb-shortcode-related-script',
-				WPB_PLUGIN_URL . 'assets/public/js/script.js',
+				WPB_PLUGIN_URL . 'assets/js/public/script.js',
 				array( 'jquery' ),
 				WPB_VERSION,
 				true

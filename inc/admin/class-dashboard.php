@@ -26,6 +26,37 @@ class Dashboard {
 	private function initialize() {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'menu' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'load_assets' ) );
+	}
+
+	/**
+	 * Load assets
+	 *
+	 * @param  string $location The location where the hook is executed.
+	 *
+	 * @return void
+	 */
+	public function load_assets( $location ) {
+		if ( 'toplevel_page_wpb-settings' !== $location ) {
+			return;
+		}
+
+		// Change file path to coresponding css file.
+		wp_enqueue_style(
+			'wpb-admin-related-style',
+			WPB_PLUGIN_URL . 'assets/css/admin/style.css',
+			array(),
+			WPB_VERSION
+		);
+
+		// Change file path to coresponding js file.
+		wp_enqueue_script(
+			'wpb-admin-related-script',
+			WPB_PLUGIN_URL . 'assets/js/admin/script.js',
+			array( 'jquery' ),
+			WPB_VERSION,
+			true
+		);
 	}
 
 	/**
